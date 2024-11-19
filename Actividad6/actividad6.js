@@ -3,7 +3,7 @@ const particle = new Particle();
 let token;
 const deviceId = '29002b000b47313037363132'; // Reemplaza con tu Device ID
 
-// Autenticación de usuario
+// inicio de sesión en particle
 particle.login({username: 'lcastillo13@ucol.mx', password: 'lauada13'}).then(
     function(data) {
         token = data.body.access_token;
@@ -29,7 +29,7 @@ function updateTMSFromParticle(newValue) {
     document.getElementById('tmsResult').textContent = newValue;
 }
 
-// Función para enviar el valor del slider a Particle
+// Función para enviar el valor a Particle
 function sendValueToParticle(value) {
     particle.callFunction({ deviceId: deviceId, name: 'TMS_2', argument: String(value), auth: token }).then(
         function(data) {
@@ -41,7 +41,7 @@ function sendValueToParticle(value) {
     );
 }
 
-// Actualizar el valor del tooltip y enviar el valor a Particle
+// Actualizar el valor y enviar a Particle
 function updateValue(slider) {
     const tooltip = document.getElementById('tooltip');
     const value = slider.value;
@@ -60,7 +60,7 @@ function updateValue(slider) {
     sendValueToParticle(value);
 }
 
-// Inicializar el tooltip con la posición correcta al cargar la página
+// Inicializar el slider al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
     const slider = document.getElementById('slider');
     updateValue(slider); // Inicializar con el valor inicial

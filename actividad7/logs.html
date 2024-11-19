@@ -1,0 +1,21 @@
+</html>
+    <head>
+        <title>Example to send logs to Datadog</title>
+        <script>
+          (function(h,o,u,n,d) {
+            h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+            d=o.createElement(u);d.async=1;d.src=n
+            n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+          })(window,document,'script','https://www.datadoghq-browser-agent.com/us5/v5/datadog-logs.js','DD_LOGS')
+          window.DD_LOGS.onReady(function() {
+            window.DD_LOGS.init({
+              clientToken: 'pubc259fb51e9caf6d13d9a299bd739004a',
+              site: 'us5.datadoghq.com',
+              forwardErrorsToLogs: true,
+              sessionSampleRate: 100,
+            })
+          })
+          
+        </script>
+    </head>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Example to Send Logs to Datadog</title>
+        <script src="https://cdn.jsdelivr.net/npm/particle-api-js@10/dist/particle.min.js"></script>
+        <script>
+            // Load Datadog Browser SDK
+            (function(h, o, u, n, d) {
+                h = h[d] = h[d] || { q: [], onReady: function(c) { h.q.push(c) } };
+                d = o.createElement(u); d.async = 1; d.src = n;
+                n = o.getElementsByTagName(u)[0]; n.parentNode.insertBefore(d, n);
+            })(window, document, 'script', 'https://www.datadoghq-browser-agent.com/us5/v5/datadog-logs.js', 'DD_LOGS');
+
+            // Initialize Datadog Logs
+            window.DD_LOGS.onReady(function() {
+                window.DD_LOGS.init({
+                    clientToken: 'pubc259fb51e9caf6d13d9a299bd739004a', // Replace with your client token
+                    site: 'us5.datadoghq.com',
+                    forwardErrorsToLogs: true,
+                    sessionSampleRate: 100,
+                });
+
+                // Start periodic data retrieval and logging
+                startLogging();
+            });
+
+            // Your Particle API setup
+            const particle = new Particle();
+            const deviceId = '29002b000b47313037363132';  // Replace with your actual device ID
+            const credentials = {
+                user: 'lcastillo13@ucol.mx',           // Replace with your actual username
+                password: 'lauada13'        // Replace with your actual password
+            };
+            let token;
+            let logId = 0; // Initialize logId
+
+            // Function to log into Particle API
+            async function login() {
+                try {
+                    const data = await particle.login({username: credentials.user, password: credentials.password});
+                    token = data.body.access_token;
+                } catch (err) {
+                    console.log('Could not log in.', err);
+                }
+            }
+
+            // Function to get the temperature variable and send logs to Datadog
+            async function getTemperatureAndSendToDatadog() {
+                try {
+                    const tempResponse = await particle.getVariable({deviceId: deviceId, name: 'Temp', auth: token});
+                    const temp = tempResponse.body.result.toFixed(2);
+
+                    // Log temperature to Datadog
+                    console.log(temp)
+                    logTemperature(temp);
+                } catch (err) {
+                    console.log('An error occurred while getting temperature:', err);
+                }
+            }
+
+            // Function to log temperature data to Datadog
+            function logTemperature(temp) {
+                logId++; // Increment the logId
+                window.DD_LOGS.logger.info('getTemperature', {
+                    name: 'temperature',
+                    id: logId,
+                    value: temp
+                });
+            }
+
+            // Function to start periodic logging
+            async function startLogging() {
+                await login();
+                getTemperatureAndSendToDatadog(); // Initial call
+                setInterval(getTemperatureAndSendToDatadog, 60000); // Periodically call every 5 seconds
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Example to Send Logs to Datadog</h1>
+    </body>
+    </html>

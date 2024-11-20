@@ -3,9 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Detector de Incendios con Particle</title>
+    <link rel="stylesheet" href="styles/estilos.css">
 </head>
 <body>
-    <h1>Detector de Incendios</h1>
+    <div class = "container">
+        <h1> Particle Console Interface </h1>
+        <div class = "readings">
+            <h3>Temperature (°C):<span id = "tempC">--</span></h3>
+        </div>
+        <div class="reading">
+            <h3>Temperature (°F): <span id="tempF">--</span></h3>
+        </div>
+        <div class="reading">
+            <h3>Heat Index (°C): <span id="heatIndex">--</span></h3>
+        </div>
+        <div class="reading">
+            <h3>Smoke/Gas (ppm): <span id="gasLevel">--</span></h3>
+        </div>
+    </div>
+    <div class = "alarm-settings">
+       <h2>Alarm Settings</h2>  
+       <p>
+            Temperature Threshold (°C):
+            <input type="number" id="tempThreshold" value="35" min="0" max="100" step="0.1">
+        </p>
+        <p>
+            Gas/Smoke Threshold (ppm): 
+            <input type="number" id="gasThreshold" value="5" min="0" max="1000" step="1">
+        </p>
+        <button onclick="updateThresholds()"> Simulate new reading</button>
+        <div id="alarmStatus"></div>
+    </div>
+    <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,44 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Detector de Incendios con Particle</title>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="styles/estilos.css">
-    </head>
-    <body>
-        < class = "container">
-            <h1> Detector de Incendios </h1>
-            <div class = "readings">
-                <h3>Temperatura (°C):<span id = "tempC">--</span></h3>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detector de Incendios con Particle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detector de Incendios</h1>
+        
+        <div class="gauges">
+            <div class="gauge temperature">
+                <div class="gauge-body">
+                    <div class="gauge-fill"></div>
+                    <div class="gauge-cover"><span id="tempC">--</span>°C</div>
+                </div>
+                <p>Temperatura (°C)</p>
             </div>
-            <div class="reading">
-                <h3>Temperatura (°F): <span id="tempF">--</span></h3>
+            
+            <div class="gauge temperature-f">
+                <div class="gauge-body">
+                    <div class="gauge-fill"></div>
+                    <div class="gauge-cover"><span id="tempF">--</span>°F</div>
+                </div>
+                <p>Temperatura (°F)</p>
             </div>
-            <div class="reading">
-                <h3>Humedad: <span id="Hum">--</span></h3>
+            
+            <div class="gauge humidity">
+                <div class="gauge-body">
+                    <div class="gauge-fill"></div>
+                    <div class="gauge-cover"><span id="Hum">--</span>%</div>
+                </div>
+                <p>Humedad</p>
             </div>
-            <div class="reading">
-                <h3>Indice de Calor (°C): <span id="heatIndex">--</span></h3>
+            
+            <div class="gauge heat-index">
+                <div class="gauge-body">
+                    <div class="gauge-fill"></div>
+                    <div class="gauge-cover"><span id="heatIndex">--</span>°C</div>
+                </div>
+                <p>Índice de Calor</p>
             </div>
-            <div class="reading">
-                <h3>Humo/Gas (ppm): <span id="gasLevel">--</span></h3>
+            
+            <div class="gauge gas-level">
+                <div class="gauge-body">
+                    <div class="gauge-fill"></div>
+                    <div class="gauge-cover"><span id="gasLevel">--</span> ppm</div>
+                </div>
+                <p>Nivel de Gas</p>
             </div>
         </div>
-        <div class = "alarm-settings">
-        <h2>Configuracion de alarma</h2>  
-        <p>
-                Limite Temperatura (°C):
+
+        <div class="alarm-settings">
+            <h2>Configuración de alarma</h2>
+            <div class="setting">
+                <label for="tempThreshold">Límite Temperatura (°C):</label>
                 <input type="number" id="tempThreshold" value="35" min="0" max="100" step="0.1">
-            </p>
-            <p>
-                Limite Gas/Humo (ppm): 
+            </div>
+            <div class="setting">
+                <label for="gasThreshold">Límite Gas/Humo (ppm):</label>
                 <input type="number" id="gasThreshold" value="5" min="0" max="1000" step="1">
-            </p>
-            <button onclick="updateThresholds()"> Simular nueva lectura</button>
+            </div>
+            <button onclick="updateThresholds()">Simular nueva lectura</button>
             <div id="alarmStatus"></div>
         </div>
-        <script src="js/app.js"></script>
-    </body>
+    </div>
+    <script src="app.js"></script>
+</body>
 </html>

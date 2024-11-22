@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detector de Incendios con Particle</title>
-    <link rel="stylesheet" href="styles/estilos.css">
-</head>
-<body>
-    <div class = "container">
-        <h1> Particle Console Interface </h1>
-        <div class = "readings">
-            <h3>Temperature (°C):<span id = "tempC">--</span></h3>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detector de Incendios con Particle</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles/estilos.css">
+    </head>
+    <body>
+        < class = "container">
+            <h1> Detector de Incendios </h1>
+            <div class = "readings">
+                <h3>Temperatura (°C):<span id = "tempC">--</span></h3>
+            </div>
+            <div class="reading">
+                <h3>Temperatura (°F): <span id="tempF">--</span></h3>
+            </div>
+            <div class="reading">
+                <h3>Humedad: <span id="Hum">--</span></h3>
+            </div>
+            <div class="reading">
+                <h3>Indice de Calor (°C): <span id="heatIndex">--</span></h3>
+            </div>
+            <div class="reading">
+                <h3>Humo/Gas (ppm): <span id="gasLevel">--</span></h3>
+            </div>
         </div>
-        <div class="reading">
-            <h3>Temperature (°F): <span id="tempF">--</span></h3>
-        </div>
-        <div class="reading">
-            <h3>Heat Index (°C): <span id="heatIndex">--</span></h3>
-        </div>
-        <div class="reading">
-            <h3>Smoke/Gas (ppm): <span id="gasLevel">--</span></h3>
-        </div>
-    </div>
-    <div class = "alarm-settings">
-       <h2>Alarm Settings</h2>  
-       <p>
-            Temperature Threshold (°C):
-            <input type="number" id="tempThreshold" value="35" min="0" max="100" step="0.1">
-        </p>
+        <div class = "alarm-settings">
+        <h2>Configuracion de alarma</h2>  
         <p>
-            Gas/Smoke Threshold (ppm): 
-            <input type="number" id="gasThreshold" value="5" min="0" max="1000" step="1">
-        </p>
-        <button onclick="updateThresholds()"> Simulate new reading</button>
-        <div id="alarmStatus"></div>
-    </div>
-    <script src="js/app.js"></script>
-</body>
+                Limite Temperatura (°C):
+                <input type="number" id="tempThreshold" value="35" min="0" max="100" step="0.1">
+            </p>
+            <p>
+                Limite Gas/Humo (ppm): 
+                <input type="number" id="gasThreshold" value="5" min="0" max="1000" step="1">
+            </p>
+            <button onclick="updateThresholds()"> Simular nueva lectura</button>
+            <div id="alarmStatus"></div>
+        </div>
+        <script src="js/app.js"></script>
+    </body>
 </html>

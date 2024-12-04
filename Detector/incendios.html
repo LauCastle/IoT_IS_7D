@@ -3,68 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detector de Incendios con Particle</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Detector de Incendios</title>
     <link rel="stylesheet" href="styles/estilos.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>Detector de Incendios</h1>
-        
-        <div class="gauges">
-            <div class="gauge temperature">
-                <div class="gauge-body">
-                    <div class="gauge-fill"></div>
-                    <div class="gauge-cover"><span id="tempC">--</span>°C</div>
-                </div>
-                <p>Temperatura (°C)</p>
-            </div>
-            
-            <div class="gauge temperature-f">
-                <div class="gauge-body">
-                    <div class="gauge-fill"></div>
-                    <div class="gauge-cover"><span id="tempF">--</span>°F</div>
-                </div>
-                <p>Temperatura (°F)</p>
-            </div>
-            
-            <div class="gauge humidity">
-                <div class="gauge-body">
-                    <div class="gauge-fill"></div>
-                    <div class="gauge-cover"><span id="humidity">--</span>%</div>
-                </div>
-                <p>Humedad</p>
-            </div>
-            
-            <div class="gauge heat-index">
-                <div class="gauge-body">
-                    <div class="gauge-fill"></div>
-                    <div class="gauge-cover"><span id="heatIndex">--</span>°C</div>
-                </div>
-                <p>Índice de Calor</p>
-            </div>
-            
-            <div class="gauge gas-level">
-                <div class="gauge-body">
-                    <div class="gauge-fill"></div>
-                    <div class="gauge-cover"><span id="gasLevel">--</span> ppm</div>
-                </div>
-                <p>Nivel de Gas</p>
-            </div>
-        </div>
 
-        <div class="alarm-settings">
-            <h2>Configuración de alarma</h2>
-            <div class="setting">
-                <label for="tempThreshold">Límite Temperatura (°C):</label>
-                <input type="number" id="tempThreshold" value="35" min="0" max="100" step="0.1">
+        <div class="main-content">
+            <div class="left-column">
+                <div class="current-values">
+                    <div class="value-card">
+                        <h3>Temperatura (°C)</h3>
+                        <p><span id="tempC">--</span>°C</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Temperatura (°F)</h3>
+                        <p><span id="tempF">--</span>°F</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Humedad</h3>
+                        <p><span id="humidity">--</span>%</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Índice de Calor</h3>
+                        <p><span id="heatIndex">--</span>°C</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Nivel de Gas</h3>
+                        <p><span id="gasLevel">--</span> ppm</p>
+                    </div>
+                </div>
+                <div id="chart"></div>
             </div>
-            <div class="setting">
-                <label for="gasThreshold">Límite Gas/Humo (ppm):</label>
-                <input type="number" id="gasThreshold" value="5" min="0" max="1000" step="1">
+
+            <div class="right-column">
+                <div class="alarm-settings">
+                    <h2>Configuración de alarma</h2>
+                    <div class="setting">
+                        <label for="tempThreshold">Límite Temperatura (°C):</label>
+                        <input type="number" id="tempThreshold" value="" min="0" max="100" step="0.1">
+                    </div>
+                    <div class="setting">
+                        <label for="gasThreshold">Límite Gas/Humo (ppm):</label>
+                        <input type="number" id="gasThreshold" value="" min="0" max="1000" step="1">
+                    </div>
+                    <button onclick="updateThresholds()">Cambiar Limite</button>
+                    <div id="alarmStatus"></div>
+                </div>
+
+                <div class="history-section">
+                    <h2>Historial de datos</h2>
+                    <button onclick="showHistoricalData()">Ver historial</button>
+                    <button id="clearHistoryBtn">Limpiar Historial</button>
+                    <table id="historyTable" style="width: 100%; margin-top: 20px; display: none;">
+                        <thead>
+                            <tr>
+                                <th>Fecha y Hora</th>
+                                <th>Temperatura (°C)</th>
+                                <th>Temperatura (°F)</th>
+                                <th>Humedad (%)</th>
+                                <th>Índice de Calor (°C)</th>
+                                <th>Nivel de Gas (ppm)</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div class="export-section">
+                    <h2>Exportar datos</h2>
+                    <button onclick="exportDataToCSV()">Exportar a CSV</button>
+                </div>
             </div>
-            <button onclick="updateThresholds()">Simular nueva lectura</button>
-            <div id="alarmStatus"></div>
         </div>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/particle-api-js@8/dist/particle.min.js"></script>

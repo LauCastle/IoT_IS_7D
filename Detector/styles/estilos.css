@@ -1,7 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 
- /*Estilo general */
- body {
-    font-family: 'Roboto', sans-serif;
+body {
+    font-family: Roboto, sans-serif;
     background-color: #f0f4f8;
     margin: 0;
     padding: 20px;
@@ -9,7 +9,6 @@
 }
 
 .container {
-    max-width: 1200px;
     margin: 0 auto;
     background-color: #ffffff;
     border-radius: 10px;
@@ -22,65 +21,61 @@ h1, h2 {
     color: #2c3e50;
 }
 
-.gauges {
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+.left-column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.right-column {
+    flex: 2;
+}
+
+.current-values {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 30px;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.gauge {
-    width: 200px;
+.value-card {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
     text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    flex: 1 1 calc(20% - 10px);
+    min-width: 120px;
 }
 
-.gauge-body {
-    width: 150px;
-    height: 75px;
-    margin: 0 auto;
-    position: relative;
-    border-radius: 150px 150px 0 0;
-    overflow: hidden;
-    background: #f0f0f0;
+.value-card h3 {
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+    color: #6c757d;
 }
 
-.gauge-fill {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: inherit;
-    height: inherit;
-    transform-origin: center top;
-    transform: rotate(0.25turn);
-    transition: transform 0.2s ease-out;
-}
-
-.gauge-cover {
-    width: 130px;
-    height: 65px;
-    border-radius: 130px 130px 0 0;
-    background: #ffffff;
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
+.value-card p {
+    margin: 0;
+    font-size: 1.2rem;
     font-weight: bold;
+    color: #2c3e50;
 }
 
-.temperature .gauge-fill { background: linear-gradient(to right, #3498db, #8e44ad, #e74c3c); }
-.temperature-f .gauge-fill { background: linear-gradient(to right, #3498db, #8e44ad, #e74c3c); }
-.humidity .gauge-fill { background: linear-gradient(to right, #1abc9c, #3498db, #2980b9); }
-.heat-index .gauge-fill { background: linear-gradient(to right, #f1c40f, #e67e22, #e74c3c); }
-.gas-level .gauge-fill { background: linear-gradient(to right, #2ecc71, #f1c40f, #e74c3c); }
+#chart {
+    width: 100%;
+    height: 350px;
+}
 
 .alarm-settings {
     background-color: #ecf0f1;
     padding: 20px;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 .setting {
@@ -89,12 +84,12 @@ h1, h2 {
 
 label {
     display: inline-block;
-    width: 200px;
-    margin-right: 10px;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 input[type="number"] {
-    width: 100px;
+    width: 100%;
     padding: 5px;
     border: 1px solid #bdc3c7;
     border-radius: 3px;
@@ -123,14 +118,19 @@ button:hover {
     font-weight: bold;
 }
 
+.history-section, .export-section {
+    margin-top: 20px;
+}
+
 @media (max-width: 768px) {
-    .gauges {
+    .main-content {
         flex-direction: column;
-        align-items: center;
     }
-    
-    .gauge {
+    .left-column, .right-column {
         width: 100%;
-        max-width: 200px;
+    }
+    .value-card {
+        flex: 1 1 calc(50% - 10px);
     }
 }
+
